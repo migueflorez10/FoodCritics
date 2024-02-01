@@ -1,0 +1,43 @@
+
+.column{
+    flex:0 0 auto;
+    width:33.33333333%;
+    background-color:#F1A661;
+
+}
+.column:hover{
+    background-color:#E38B29;
+}
+.back{
+    background-color: #FDEEDC;
+}
+.botones{
+    background-color: #F1A661;
+    font-family: Arial;
+}
+.botones:hover{
+    background-color: #E38B29;
+}
+.bg-section{
+    background-color: rgb(255, 216, 169);
+}
+header.masthed {
+    padding-top: 6rem;
+    padding-bottom: 10rem;
+}
+.features-icon {
+    padding-top: 4rem;
+    padding-bottom: 7rem;
+}
+.in{
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: 0.3rem;
+}
+.mapa{
+    width: 80%; 
+    height:600px;
+}
+.ins{
+    padding-top:5rem;
+}

@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html>
+    {% load static %}   
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>FOOD CRITICS</title>
+    <link rel="stylesheet" href="{% static 'assets/css/window.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
+        <div class="container"><a class="navbar-brand" href="../home">FoodCritics&nbsp;</a>
+
+            <b><a href="../tus-puntos" style="color: #000; text-decoration: none;">Tus puntos: {{ detalle.points}}</a></b>
+
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <a class="btn botones ms-auto" role="button" href="/home">Inicio</a>
+                </div>&nbsp;&nbsp;&nbsp;&nbsp; 
+                <a class="btn botones ms-auto" role="button" href="{% url 'cerrar_sesion'%}">Cerrar Sesion</a>
+        </div>
+    </nav>
+    <header class="text-center text-white masthed" style="background:url('{%static 'assets/img/restaurants.jpeg' %}')no-repeat center center;background-size:cover; height:600px;">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto position-relative">
+                    <h1 class="mb-5">Estamos viendo el restaurante</h1>
+                    <h1 class="mb-5">{{restaurante.name}} ------ Puntuación: {{restaurante.rating}}</h1>
+                </div>
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto position-relative">
+                    
+
+                    <div class="comentario">
+                    
+                        <form method="post">
+    
+                            {% csrf_token %}
+    
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" style="padding: 0.5rem 1rem;
+                                font-size: 0.75rem;
+                                border-radius: 0.3rem;" name="name_user" value="{{detalle.name}}" hidden></p>
+                            <p>Comentario: <input type="text"  style="padding: 0.5rem 1rem;
+                                font-size: 0.75rem;
+                                border-radius: 0.3rem;"  class ="in" name="comentario_user"></p>
+                            
+                            <p>Puntuacion:
+                                <select style="padding: 0.5rem 1rem;
+                                font-size: 0.75rem;
+                                border-radius: 0.3rem; margin-right: 15%;" class ="" name="puntuacion_user" min="1" max="5" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    </select>
+                                    </p>
+    
+                                <input class="btn botones ms-auto" type="submit" value="Comentar">
+                                &nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="../menu/?menu={{restaurante.place_id}}" class="btn botones ms-auto">Ver menu</a>
+                                    
+                        </form>
+                        
+                        {%if comentarios.reviews%}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+    </header>
+    
+    <section class="text-center features-icon back">
+        <div class="container">
+            <div class="row">
+                {%for review in comentarios.reviews%}
+                <div class="column" style="border: 5px solid #FDEEDC;">
+                <a style="color: #000;
+                text-decoration: none;">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div class="d-flex features-icons-icon">
+                        </div>
+                        
+                        <p class="lead mb-0"><b><strong>Nombre: </strong>{{review.author}}</b></p>
+                        {% if review.text %}
+
+                            <p><strong>Comentario: </strong>{{review.text}}</p>
+
+                        {% else %}
+
+                            <p>Sin comentario.</p>
+
+                        {% endif %}
+                        
+                        <p><strong>Puntuacion: </strong>{{review.rating}}</p>
+                        <p><strong>Fecha: </strong>{{review.time}}</p>
+                        <br>
+                    </a>
+                    </div>
+                </div>
+                {% endfor%}
+                {%else%}
+                <br><br>
+                <p><strong>Aun no existen comentarios, se el primero en hacerlo. </strong></p>
+    
+            {%endif%}
+            </div>
+        </div>
+    </section>
+   
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+</body>
+
+    
+</body>
+</html>

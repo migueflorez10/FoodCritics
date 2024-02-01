@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}   
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>FOOD CRITICS</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
+        <div class="container"><a class="navbar-brand" href="../home">FoodCritics&nbsp;</a>
+
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <a class="btn botones ms-auto" role="button" href="../home">Inicio</a>
+                </div>&nbsp;&nbsp;&nbsp;&nbsp; 
+                <a class="btn botones ms-auto" role="button" href="{% url 'cerrar_sesion'%}">Cerrar Sesion</a>
+        </div>
+    </nav>
+
+    <section class="text-center features-icon back" style="height: 100%;">
+        <div class="container">
+
+            <h3>Tus puntos: {{detalle.points}}</h3>
+            <br>
+
+            <div class="row">
+
+                {% for bono in bonos %}
+                
+                    <div class="column" style="border: 5px solid #FDEEDC; height: 33vh;">
+                        <a href="?redeem={{bono}}" onclick="alerta('{{bono}}')" style="color: #000;text-decoration: none;">
+                            <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                                <br>
+                                <h3>Reclamar bono</h3>
+                                <br>
+                                <p>{{bono}} Puntos</p>
+                                <p>PROXIMAMENTE!</p>
+                            </div>
+                        </a>
+                    </div>
+
+                {%endfor%}
+
+                </div>
+    
+            </div>
+        </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        function alerta(puntos) {
+            
+            if(window.confirm("¿Desea reclamar el bono?")){
+
+                if(parseInt("{{puntos}}") >= puntos){    
+                    var redeem = '?redeem='+puntos;
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: redeem,
+                        data: {
+                            'redeem': puntos
+                        }
+                    });
+                } else {
+                    alert('No tienes suficientes puntos :(');
+                }
+
+
+            } else {
+                alert('cancelado');
+            }
+
+            
+            
+        }
+
+    </script>
+    
+</body>

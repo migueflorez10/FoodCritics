@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}   
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>FOOD CRITICS</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
+        <div class="container"><a class="navbar-brand" href="../home">FoodCritics&nbsp;</a>
+
+            <b><a href="../tus-puntos" style="color: #000; text-decoration: none;">Tus puntos: {{ detalle.points}}</a></b>
+
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <a class="btn botones ms-auto" role="button" href="../home">Inicio</a>
+                </div>&nbsp;&nbsp;&nbsp;&nbsp; 
+                <a class="btn botones ms-auto" role="button" href="{% url 'cerrar_sesion'%}">Cerrar Sesion</a>
+        </div>
+    </nav>
+
+    <section style="width: 80%; height:500px; margin-left: 10%; margin-top: 3%;border: 2px solid #000;">
+
+        <div id="map" style="width: 100%; height: 100%;"></div>
+
+        <script>
+
+            function initMap(){ 
+                let coordinates = "{{coordinates|safe}}";
+                coordinates = coordinates.split("'")
+
+                var coord = {lat: parseFloat(coordinates[3]), lng: parseFloat(coordinates[7])}
+
+                console.log(coord)
+
+                var map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 15,
+                    center: coord,
+                    disableDefaultUI: true,
+                    maxZoom: 17,
+                    minZoom: 14,
+                    mapId: 'fa4afd55716260be',
+                }); 
+
+                var usuario = new google.maps.Marker({
+                    position: coord,
+                    map: map,
+                    label: 'Yo'
+                });
+
+                "{% for restaurant in restaurants%}"
+
+                if("{{restaurant.location|safe}}" != "{}"){
+                    
+                    let locationRest = "{{restaurant.location|safe}}"
+
+                    locationRest = locationRest.split("'")
+
+                    let lat = locationRest[2]
+
+                    lat = lat.slice(2, -2)
+
+                    let lng = locationRest[4]
+
+                    lng = lng.slice(2, -1)
+
+                    locationRest = {"lat": parseFloat(lat), "lng": parseFloat(lng)}
+
+                    console.log(locationRest)
+
+                    new google.maps.Marker({
+                        position: locationRest,
+                        map,
+                        title: "{{restaurant.name}}"
+                    });
+
+                }
+
+                "{% endfor %}"
+
+                
+
+            }
+    
+        </script>
+
+    </section>
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key={{KEY}}&callback=initMap"></script>
+    
+    
+</body>

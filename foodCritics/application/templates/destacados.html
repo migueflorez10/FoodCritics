@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}   
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>FOOD CRITICS</title>
+    <link rel="shortcut icon" href="{%static 'assets/img/iconfood.jpeg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
+        <div class="container"><a class="navbar-brand" href="/">FoodCritics&nbsp;</a>
+
+            <b><a href="tus-puntos" style="color: #000; text-decoration: none;">Tus puntos: {{puntos}}</a></b>
+
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <a class="btn botones ms-auto" role="button" href="../mapa">Mapa</a>
+                </div>&nbsp;&nbsp;&nbsp;&nbsp; 
+                <a class="btn botones ms-auto" role="button" href="../destacados" name="destacados">Destacados</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn botones ms-auto" role="button" href="../registrarse">!Regístrate aquí!</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+                <a class="btn botones ms-auto" role="button" href="../ingreso">Iniciar sesión</a>
+            </div>
+        </div>
+    </nav>
+    <header class="text-center text-white masthed" style="background:url('{%static 'assets/img/bg-home.jpeg' %}')no-repeat center center;background-size:cover;">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto position-relative">
+                    <h1 class="mb-5" style="color: #fff; font-family:Copperplate;">Encuentre el mejor bocado.</h1>
+                </div>
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto position-relative">
+                    <form>
+                        <div class="row">
+                            <div class="col-12 col-md-9 mb-2 mb-md-0"><input class="form-control form-control-lg" type="search" name="search" placeholder="Buscar restaurante"></div>
+                            <div class="col-12 col-md-3">
+                                <button class="btn botones btn-lg" type="submit">Buscar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="text-center features-icon back">
+        <div class="container">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                </ol>
+                <div class="carousel-inner">
+                    {% for restaurant in restaurants %}
+                    {% if forloop.first %}
+                    <div class="carousel-item active">
+                    {% else %}
+                    <div class="carousel-item">
+                    {% endif %}
+                        <img class="d-block w-100" height="600px" src="{%static 'assets/img/carruselimg.jpg' %}" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{restaurant.name}}</h5>
+                            <p><strong>Puntuacion:</strong> {{restaurant.rating}}</p>
+                            <p><strong>Categoria:</strong> {{restaurant.type.tipo}}</p>
+                            <p><strong>Direccion:</strong> {{restaurant.address}}</p>
+                        </div>
+                    </div>
+                  {% endfor%}
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+        </div>
+    </section>
+    
+    <section class="text-center bg-section testimonials">
+        <div class="container">
+            <h2 class="mb-5">¿Quiénes somos?</h2>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="mx-auto testimonial-item mb-5 mb-lg-0"><img class="rounded-circle img-fluid mb-3" src="{%static 'assets/img/MiguelMartinez.jpeg' %}">
+                        <h5>Miguel Martinez </h5>
+                        <p class="font-weight-light mb-0">"Integrante 1"</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mx-auto testimonial-item mb-5 mb-lg-0"><a href="https://www.linkedin.com/in/miguel-cabrera-0547a922b/"><img class="rounded-circle img-fluid mb-3" src="{%static 'assets/img/MiguelCabrera.jpg' %}"></a>
+                        <h5>Miguel Cabrera </h5>
+                        <p class="font-weight-light mb-0">"Integrante 2"</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mx-auto testimonial-item mb-5 mb-lg-0"><img class="rounded-circle img-fluid mb-3" src="{%static 'assets/img/DanielMelguizo.jpg' %}">
+                        <h5>Daniel Melguizo</h5>
+                        <p class="font-weight-light mb-0">"Integrante 3"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script> 
+
+        function success(pos) {
+            const crd = pos.coords;
+            const latitudes = crd.latitude;
+            const longitudes = crd.longitude;
+
+            $.ajax({
+                type: 'POST',
+                url: '/',
+                data: {
+                    latitudes,
+                    longitudes
+                }
+            });
+
+        }
+
+        function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+
+        navigator.geolocation.getCurrentPosition(success, error);
+    
+    </script>
+</body>
+
+    
+</body>
+</html>

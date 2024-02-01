@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+    {% load static %}   
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>FOOD CRITICS</title>
+    <link rel="stylesheet" href="{% static 'assets/css/window.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css'%}"> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
+        <div class="container"><a class="navbar-brand" href="../home">FoodCritics&nbsp;</a>
+
+            <b><a href="../tus-puntos" style="color: #000; text-decoration: none;">Tus puntos: {{detalle.points}}</a></b>
+
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <a class="btn botones ms-auto" role="button" href="/home">Inicio</a>
+                </div>&nbsp;&nbsp;&nbsp;&nbsp; 
+                <a class="btn botones ms-auto" role="button" href="{% url 'cerrar_sesion'%}">Cerrar Sesion</a>
+        </div>
+    </nav>
+
+    <header class="text-center text-black masthed" style="background-color:#FDEEDC;">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                {% for i in plato %}
+                <div class="col-xl-9 mx-auto position-relative">
+                    <br>
+                    <h1 class="mb-5" style="margin-top: -90px;">Estamos viendo el Plato {{i.name}}</h1>
+                    <img src="{{i.photo.url}}" style="width: 45%; height:45%; border: 2px solid #000;border-radius:17px;">
+                    <br>
+                    <h1 class="mb-5" style="margin-top: 10px;">Puntuación: {{i.rating}}</h1>
+                </div>
+                {% endfor %}
+                <
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto position-relative">
+                    
+
+                    <div class="comentario" style="margin-top:-70px;">
+                    
+                        <form method="post">
+    
+                            {% csrf_token %}
+    
+                           <input type="text" style="padding: 0.5rem 1rem;
+                                font-size: 0.75rem;
+                                border-radius: 0.3rem;" name="name_user" value="{{detalle.name}}" hidden></p>
+                            <p>Comentario: <input type="text"  style="padding: 0.5rem 1rem;
+                                font-size: 0.75rem;
+                                border-radius: 0.3rem;"  class ="in" name="comentario_user"></p>
+                            
+                            <p>Puntuacion:
+                                <select style="padding: 0.5rem 1rem;
+                                font-size: 0.75rem;
+                                border-radius: 0.3rem; margin-right: 15%;" class ="" name="puntuacion_user" min="1" max="5" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    </select>
+                                    </p>
+    
+                                <input class="btn botones ms-auto" type="submit" value="Comentar">&nbsp;&nbsp;&nbsp;
+                                {% for i in plato %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../menu/?menu={{i.restaurante.place_id}}" class="btn botones ms-auto">Volver</a>
+                                {% endfor %}
+                                    
+                        </form>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+    </header>
+
+
+    <section class="text-center features-icon back"  id="linea" style="margin-top:-170px">
+        <div class="container">
+            <div class="row">
+                {%for i in plato %}
+                {% for review in i.reviews %}
+                <div class="column" style="border: 5px solid #FDEEDC;max-width: 40%; border-radius:10px; max-height: 80%;">
+                <p style="color: #000;text-decoration: none;">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3" ></div>
+                        <p class="lead mb-0"><b>
+                        <strong></strong>{{review.author}}</b>
+                        <hr class="linea" id="linea" style=" margin-left: 10%; margin-right: 10%;">
+                    </p>
+                        <p style="text-align:left; margin-left: 15%; "><strong >Fecha: </strong>{{review.time}}</p>
+
+                        <p style="text-align:left;  margin-left: 15%;"><strong  >Puntuacion: </strong>{{review.rating}}</p>
+                        <p style="text-align:left;  margin-left: 15%;"><strong>Comentario: </strong>{{review.text}}</p>
+                        
+                        
+                    </p>
+                    </div>
+                    {% endfor %}
+                    {% endfor%}
+                </div>  
+            </div>
+        </div>
+    </section>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+</body>
+
+    
+</body>
+</html>
